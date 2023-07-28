@@ -34,7 +34,8 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            //
+            'appLogo' => config('app.logo'),
+            'appHome' => config('app.home'),
         ]);
     }
 }

@@ -38,7 +38,7 @@ class SchedulePingCommand extends Command
         foreach ($sites as $site) {
             if ($site->type === 'http') {
                 $this->info("Scheduling ping for {$site->name}");
-                RunHttpPing::dispatch($site);
+                RunHttpPing::dispatch($site)->onQueue('http-ping');
             }
         }
     }
