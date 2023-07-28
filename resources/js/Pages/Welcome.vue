@@ -29,7 +29,7 @@ setInterval(() => {
     })
 
     console.log('Reloaded status.');
-}, 5000)
+}, 1000)
 </script>
 
 <template>
@@ -99,10 +99,47 @@ setInterval(() => {
                                 </div>
 
                                 <div>
-                                    <span class="text-sm text-base-content">Last checked {{ moment(site.updated_at).fromNow() }}.</span>
+                                    <span class="text-sm text-base-content">Last checked {{ site.updated_at }}.</span>
                                 </div>
                             </div>
                         </div>
+                </div>
+            </div>
+
+            <div class="border-t pt-6">
+                <div class="pb-5">
+                    <h3 class="text-base font-semibold leading-6 text-lg text-gray-900">Downtimes</h3>
+                </div>
+
+                <div v-if="downtimes.length > 0">
+                    <ul role="list" class="divide-y divide-gray-100">
+                        <li v-for="downtime in downtimes" :key="downtime.id" class="flex justify-between gap-x-6 py-5">
+                            <div class="flex-1">
+                                <p>DOWNTIME #{{ downtime.id }}</p>
+                                <div v-if="downtime.updated_at == null">
+                                    <p class="text-sm text-base-content/75">Downtime started {{ downtime.created_at }}.</p>
+                                </div>
+                                <div v-else>
+                                    <p class="text-sm text-base-content/75">Downtime ended {{ downtime.updated_at }}.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 text-right">
+                                <span>
+                                    <span v-if="downtime.updated_at == null" class="badge badge-error">
+                                        Ongoing
+                                    </span>
+                                    <span v-else class="badge badge-success">
+                                        Resolved
+                                    </span>
+                                </span>
+                                <span class="text-sm text-base-content/75">Downtime lasted {{ downtime.duration }}.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-else>
+                    <p>There has been no downtimes.</p>
                 </div>
             </div>
         </div>
