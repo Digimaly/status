@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SiteTypeEnum : string
+enum SiteTypeEnum: string
 {
     case Http = 'http';
     case Redis = 'redis';

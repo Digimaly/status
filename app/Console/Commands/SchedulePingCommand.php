@@ -35,8 +35,8 @@ class SchedulePingCommand extends Command
         $sites = Site::where('data->timing', $timing)->get();
 
         // We need to loop through all the sites and schedule the ping
-        foreach ($sites as $site){
-            if($site->type === 'http'){
+        foreach ($sites as $site) {
+            if ($site->type === 'http') {
                 $this->info("Scheduling ping for {$site->name}");
                 RunHttpPing::dispatch($site);
             }

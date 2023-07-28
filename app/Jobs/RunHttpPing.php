@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Site;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -40,11 +39,10 @@ class RunHttpPing implements ShouldQueue
 
         $response = Http::timeout(10)->{$method}($pingUrl);
 
-        if($response->successful()){
+        if ($response->successful()) {
             // We'll run stuff to bring it up, when it's time.
             $this->site->is_down = false;
-        }
-        else{
+        } else {
             // We'll run stuff to bring it down, when it's time.
             $this->site->is_down = true;
         }

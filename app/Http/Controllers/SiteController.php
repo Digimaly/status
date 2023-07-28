@@ -18,7 +18,7 @@ class SiteController extends Controller
         $sites = Site::all();
 
         return Inertia::render('Sites/Index', [
-            'sites' => $sites
+            'sites' => $sites,
         ]);
     }
 
@@ -30,7 +30,7 @@ class SiteController extends Controller
         $types = SiteTypeEnum::cases();
 
         return Inertia::render('Sites/Create', [
-            'types' => $types
+            'types' => $types,
         ]);
     }
 
@@ -42,7 +42,7 @@ class SiteController extends Controller
         $siteData = $request->input('siteData');
 
         // Validate the site data array
-        if($request->input('type') == 'http'){
+        if ($request->input('type') == 'http') {
             $request->validate([
                 'siteData.url' => 'required|url',
                 'siteData.method' => 'required|string|in:GET,POST,PUT,PATCH,DELETE',
