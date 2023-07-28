@@ -58,6 +58,8 @@ class RunHttpPing implements ShouldQueue
             $this->markSiteAsDown();
         }
 
+        $this->site->updated_at = now();
+
         $this->site->save();
     }
 

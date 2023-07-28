@@ -3,6 +3,7 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import moment from 'moment'
 
 const props = defineProps({
     sites: Object,
@@ -87,13 +88,19 @@ setInterval(() => {
                                 <h2 class="text-xl font-semibold">{{ site.name }}</h2>
                                 <span class="text-base-content/75">{{ site.url }}</span>
                             </div>
-                            <div>
-                                <span v-if="!site.is_down" class="badge badge-success">
+                            <div class="grid grid-cols-1">
+                                <div class="flex justify-end">
+                                    <span v-if="!site.is_down" class="badge badge-success">
                                     Online
-                                </span>
-                                <span v-else class="badge badge-error">
+                                    </span>
+                                    <span v-else class="badge badge-error">
                                     Offline
                                 </span>
+                                </div>
+
+                                <div>
+                                    <span class="text-sm text-base-content">Last checked {{ moment(site.updated_at).fromNow() }}.</span>
+                                </div>
                             </div>
                         </div>
                 </div>
