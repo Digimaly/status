@@ -40,14 +40,13 @@ class RunHttpPing implements ShouldQueue
 
         try {
             $response = Http::timeout(10)->{$method}($pingUrl);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->site->is_down = true;
             $this->markSiteAsDown();
             $this->site->save();
+
             return;
         }
-
 
         if ($response->successful()) {
             // We'll run stuff to bring it up, when it's time.
@@ -64,7 +63,7 @@ class RunHttpPing implements ShouldQueue
 
     private function markSiteAsUp()
     {
-        $downtime =  Downtime::where('site_id', $this->site->id)->whereNull('end_time')->first();
+        $downtime = Downtime::where('site_id', $this->site->id)->whereNull('end_time')->first();
 
         if ($downtime) {
             $downtime->end_time = now();
@@ -77,7 +76,7 @@ class RunHttpPing implements ShouldQueue
     {
         $downtime = Downtime::where('site_id', $this->site->id)->whereNull('end_time')->first();
 
-        if (!$downtime) {
+        if (! $downtime) {
             $downtime = new Downtime();
             $downtime->site_id = $this->site->id;
             $downtime->start_time = now();

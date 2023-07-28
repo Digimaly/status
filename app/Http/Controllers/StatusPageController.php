@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Downtime;
 use App\Models\Site;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class StatusPageController extends Controller
